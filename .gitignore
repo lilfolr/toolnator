@@ -1,1 +1,6 @@
+# python
 venv
+
+# ides
+.idea/
+.lvimrc

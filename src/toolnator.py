@@ -23,27 +23,44 @@ questions = [
         "name": "task",
         "message": "What would you like to do?",
         "choices": [
-            {"key": "s", "name": "SSH into server", "value": "ssh"},
-            {"key": "e", "name": "Exit", "value": "exit"},
+            {"key": "s", "name": "SSH into server", "value": "ssh"}
         ],
+    },
+    {
+        "type": "list",
+        "name": "server_selection_1",
+        "message": "Which server would you like to target?",
+        "choices": [
+            {"key": "1", "name": "FROM_HISTORY", "value": "ssh"},
+            {"key": "dns", "name": "Type DNS", "value": "dns"},
+            {"key": "aws", "name": "Query AWS", "value": "query"},
+        ],
+    },
+    {
+        "type": "input",
+        "name": "server_selection_2.1",
+        "message": "Type DNS Name?",
+        'when': lambda answers: answers['server_selection_1']=='dns'
+    },
+    {
+        "type": "list",
+        "name": "server_selection_2.2.1",
+        "message": "AWS Profile?",
+        "choices": [
+            {"key": "default", "name": "FROM_HISTORY", "value": "ssh"},
+        ],
+        'when': lambda answers: answers['server_selection_1'] == 'aws'
+    },
+    {
+        "type": "input",
+        "name": "server_selection_2.2.2",
+        "message": "Instance name?",
+        'when': lambda answers: answers['server_selection_1'] == 'aws'
     }
 ]
 
 print(stylize("Hello!", colored.fg("green")))
 print(stylize("Reading config file...", colored.fg("green")))
 answers = prompt(questions, style=question_style)
-if answers['task'] == 'ssh':
-    question_2 = [
-    {
-        "type": "list",
-        "name": "task",
-        "message": "How would you like to What would you like to do?",
-        "choices": [
-            {"key": "s", "name": "SSH into server", "value": "ssh"},
-            {"key": "e", "name": "Exit", "value": "exit"},
-        ],
-    }
-
-
 
 
